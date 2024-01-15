@@ -1,4 +1,29 @@
-* {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .search-input {
+    @apply w-60 mb-5 block;
+  }
+  .carousel-item {
+    @apply rounded-full inline-block w-40 m-3;
+  }
+  .carousel-item.active {
+    @apply border-4 border-black opacity-70
+  }
+  .button {
+    @apply bg-gray-900 text-white p-3 border-2 hover:bg-gray-600 rounded-lg
+  }
+}
+
+@layer utilities {
+  .grayed-disabled {
+    @apply bg-opacity-50
+  }
+}
+
+/* * {
     box-sizing: border-box;
     color: #333;
   }
@@ -377,4 +402,4 @@
   .pagination button.active {
     background-color: #fff;
     color: #ad343e;
-  }
+  } */

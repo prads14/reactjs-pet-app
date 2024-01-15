@@ -44,8 +44,9 @@ const SearchParams = () => {
   const isLoading = results?.isLoading || false;
 
   return (
-    <div className="search-params">
+    <div className="flex">
       <form
+        className=" p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-start items-center w-11/12 my-0 mx-auto"
         onSubmit={(e) => {
           e.preventDefault();
           let formData = new FormData(e.target);
@@ -61,9 +62,14 @@ const SearchParams = () => {
       >
         <div>
           {adoptedPet.length > 0 ? (
-            <div className="carousel-smaller">
+            <div className="inline-block">
               {adoptedPet.map((pet) => (
-                <img src={pet.images[0]} alt={pet.name} key={pet.id} />
+                <img
+                  src={pet.images[0]}
+                  alt={pet.name}
+                  key={pet.id}
+                  className="carousel-item"
+                />
               ))}
             </div>
           ) : null}
@@ -73,6 +79,7 @@ const SearchParams = () => {
           <input
             name="location"
             type="text"
+            className="search-input"
             id="location"
             placeholder="Location"
           />
@@ -83,6 +90,7 @@ const SearchParams = () => {
             onChange={(e) => {
               setAnimal(e.target.value);
             }}
+            className="search-input"
             name="animal"
             id="animal"
             value={animal}
@@ -95,23 +103,32 @@ const SearchParams = () => {
         </label>
         <label htmlFor="breed">
           Breed
-          <select name="breed" disabled={breeds.length === 0} id="breed">
+          <select
+            className="search-input disabled:grayed-disabled"
+            name="breed"
+            disabled={breeds.length === 0}
+            id="breed"
+          >
             <option />
             {breeds.map((breed) => (
               <option key={breed}>{breed}</option>
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <button className="button">Submit</button>
       </form>
       <div className="search">
         <Results pets={pets} isLoading={isLoading} />
-        <div className="pagination">
+        <div className="flex flex-row gap-2 justify-start items-center m-2 pagination ml-10">
           {Array.from({
             length: Math.ceil(results?.data?.numberOfResults / 10 ?? 0),
           }).map((it, index) => (
             <button
-              className={searchParams?.page === index ? "active" : ""}
+              className={
+                searchParams?.page === index
+                  ? " bg-slate-200 px-3 py-2"
+                  : "bg-slate-500 px-3 py-2"
+              }
               key={index + 1}
               onClick={() => setSearchParams({ ...searchParams, page: index })}
             >

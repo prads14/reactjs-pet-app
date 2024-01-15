@@ -18,12 +18,17 @@ const queryClient = new QueryClient({
 const App = () => {
   const adoptedPet = useState([]);
   return (
-    <div>
+    <div className="p-0 m-0">
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <AdoptedPetContext.Provider value={adoptedPet}>
-            <header>
-              <Link to="/">Adopt me!</Link>
+            <header className="m-0 p-2 w-full bg-slate-400 text-center">
+              <Link
+                className="text-white text-5xl hover:text-opacity-50"
+                to="/"
+              >
+                Adopt me!
+              </Link>
             </header>
             <Routes>
               <Route path="/details/:id" element={<DetailsErrorBoundry />} />

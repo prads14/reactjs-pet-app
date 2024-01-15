@@ -2,10 +2,10 @@ import Pet from "./Pet";
 
 const Results = ({ pets, isLoading }) => {
   if (isLoading) {
-    return <div className="search">Data loading</div>;
+    return <div className="text-center">Data loading</div>;
   }
   return (
-    <div>
+    <div className="grid gap-4 grid-cols-1 w-11/12 my-0 mx-auto sm:grid-cols-2 lg:grid-cols-2">
       {!pets.length ? (
         <h1>No pets found</h1>
       ) : (
