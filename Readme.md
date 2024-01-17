@@ -82,3 +82,7 @@ npx tailwindcss init -p
 npm install -D @tailwindcss/forms@0.5.3
 
 Update tailwind.config
+
+# install react Redux
+
+npm install @reduxjs/toolkit@1.8.6 react-redux@8.0.4

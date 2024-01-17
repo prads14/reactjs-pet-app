@@ -4,7 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import fetchSearch from "./fetchSearch";
 import Results from "./Results";
 import fetchBreedList from "./fetchBreedList";
-import AdoptedPetContext from "./AdoptedPetContext";
+// using store instead of context
+// import AdoptedPetContext from "./AdoptedPetContext";
+import { useSelector } from "react-redux";
 // import Page from "./Page";;
 const Animals = ["cat", "dog", "bird", "rabbit", "raptile"];
 
@@ -24,7 +26,10 @@ const SearchParams = () => {
   );
 
   const [animal, setAnimal] = useState("");
-  const [adoptedPet] = useContext(AdoptedPetContext);
+  // taking value from store instead of context
+  // const [adoptedPet] = useContext(AdoptedPetContext);
+  const adoptedPet = useSelector((state) => state.adoptedPet.pets);
+
   // const [pets, setPets] = useState([]);
   //   const [breeds] = useBreedList(animal);
 

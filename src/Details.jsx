@@ -5,7 +5,12 @@ import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundry from "./ErrorBountry";
 import Modal from "./Modal";
-import AdoptedPetContext from "./AdoptedPetContext";
+
+// removing context and adding store
+// import AdoptedPetContext from "./AdoptedPetContext";
+
+import { useDispatch } from "react-redux";
+import { add_pet } from "./adoptedPetSlice";
 
 const Details = () => {
   const { id } = useParams();
@@ -13,7 +18,10 @@ const Details = () => {
   const [showModal, setShowModal] = useState(false);
   const navigation = useNavigate();
   // eslint-disable-next-line no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+  // removing function for adopted pet context
+  // const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+
+  const dispatch = useDispatch();
 
   if (results.isLoading) {
     return (
@@ -44,7 +52,8 @@ const Details = () => {
               <div className="flex block">
                 <button
                   onClick={() => {
-                    setAdoptedPet((pets) => [...pets, pet]);
+                    dispatch(add_pet(pet));
+                    //setAdoptedPet((pets) => [...pets, pet]);
                     navigation("/");
                   }}
                   className="button mr-2"
