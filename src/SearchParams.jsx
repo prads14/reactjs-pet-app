@@ -1,4 +1,4 @@
-import { useState, useContext, useTransition } from "react";
+import { useState, useTransition } from "react";
 // import useBreedList from "./useBreedList";
 import { useQuery } from "@tanstack/react-query";
 import fetchSearch from "./fetchSearch";
@@ -6,29 +6,33 @@ import Results from "./Results";
 import fetchBreedList from "./fetchBreedList";
 // using store instead of context
 // import AdoptedPetContext from "./AdoptedPetContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { all } from "./searchParamsSlice";
 // import Page from "./Page";;
 const Animals = ["cat", "dog", "bird", "rabbit", "raptile"];
 
 const SearchParams = () => {
-  const DefaultState = {
-    searchParams: {
-      animal: "",
-      breed: "",
-      location: "",
-      page: 0,
-    },
-  };
+  // const DefaultState = {
+  //   searchParams: {
+  //     animal: "",
+  //     breed: "",
+  //     location: "",
+  //     page: 0,
+  //   },
+  // };
   const [isPending, startTransition] = useTransition();
 
-  const [searchParams, setSearchParams] = useState(
-    DefaultState["searchParams"],
-  );
+  // const [searchParams, setSearchParams] = useState(
+  //   DefaultState["searchParams"],
+  // );
+
+  const dispatch = useDispatch();
 
   const [animal, setAnimal] = useState("");
   // taking value from store instead of context
   // const [adoptedPet] = useContext(AdoptedPetContext);
   const adoptedPet = useSelector((state) => state.adoptedPet.pets);
+  const searchParams = useSelector((state) => state.searchParams.value);
 
   // const [pets, setPets] = useState([]);
   //   const [breeds] = useBreedList(animal);
@@ -75,12 +79,20 @@ const SearchParams = () => {
             let formData = new FormData(e.target);
 
             startTransition(() => {
-              setSearchParams({
-                animal: formData.get("animal") || "",
-                breed: formData.get("breed") || "",
-                location: formData.get("location") || "",
-                page: 0,
-              });
+              dispatch(
+                all({
+                  animal: formData.get("animal") || "",
+                  breed: formData.get("breed") || "",
+                  location: formData.get("location") || "",
+                  page: 0,
+                }),
+              );
+              // setSearchParams({
+              //   animal: formData.get("animal") || "",
+              //   breed: formData.get("breed") || "",
+              //   location: formData.get("location") || "",
+              //   page: 0,
+              // });
             });
 
             formData.set("animal", "");
@@ -150,9 +162,7 @@ const SearchParams = () => {
                     : "bg-slate-500 px-3 py-2"
                 }
                 key={index + 1}
-                onClick={() =>
-                  setSearchParams({ ...searchParams, page: index })
-                }
+                onClick={() => dispatch(all({ ...searchParams, page: index }))}
               >
                 {index + 1}
               </button>
